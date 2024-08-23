@@ -8,6 +8,7 @@ const createUser = async (req, res) => {
             message: 'User created successfully',
             data: user
         });
+        
     } catch (err) {
         res.status(500).json({
             message: 'Error creating user',
@@ -35,3 +36,5 @@ module.exports = {
     createUser,
     getAllUsers
 };
+
+
