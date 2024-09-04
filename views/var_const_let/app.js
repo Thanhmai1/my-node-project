@@ -34,5 +34,6 @@ function example_const() {
 
 module.exports = [
     example_var,
-    example_let
+    example_let,
+    example_const
 ]
