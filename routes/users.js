@@ -1,4 +1,5 @@
 const express = require('express');
+const MongoClient = require("mongodb").MongoClient;
 const router = express.Router();
 const user_controller = require('../controllers/user_controller');
 router.get('/', async function(req, res) {
@@ -10,23 +11,16 @@ router.get('/', async function(req, res) {
         res.status(500).send("Error retrieving users.");
     }
 });
-router.post('/', async function(req, res) {
+
+router.post('/create', async (req, res) => {
+    const { username, fullname } = req.body;
+
     try {
-        await user_controller.createUser(req.body);
-        res.redirect('/');
+        const newUser = new User({ username, fullname });
+        await newUser.save();
+        res.send('User created successfully');
     } catch (error) {
-        console.error("Error creating user:", error);
-        res.status(500).send("Error creating user.");
-    }
-});
-router.post('/user/delete', async (req, res) => {
-    try {
-        const fullname = req.body.fullname;
-        await User.findOneAndDelete({ fullname: fullname });
-        res.redirect('/user');
-    } catch (error) {
-        console.error('Error deleting user:', error);
-        res.status(500).send('Internal Server Error');
+        res.status(500).send('Error creating user');
     }
 });
 

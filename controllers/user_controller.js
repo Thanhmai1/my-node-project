@@ -1,5 +1,7 @@
 const User = require('../models/model_user.js');
-
+const MongoClient = require('mongodb').MongoClient;
+const express = epress();
+const app = express;
 const createUser = async function(userData) {
     try {
         const newUser = new User(userData);
@@ -19,10 +21,9 @@ const getAllUsers = async function() {
     }
 };
 
-
 module.exports = {
     createUser,
-    getAllUsers
+    getAllUsers    
 };
 
 
